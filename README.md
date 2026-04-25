@@ -1,87 +1,50 @@
-# 🍜 Street Food Finder — Full-Stack Vendor Discovery System
+# 🍜 Street Food Finder
 
-An AI-ready, full-stack web application designed to bridge the gap between local street food vendors and customers. The platform features role-based access for Customers, Vendors, and Admins with real-time status management.
-
----
-
-## ✨ Features
-
-### 👤 Customer Features
-- **Smart Search** — Find vendors by specific food items or menu names.
-- **Advanced Filtering** — Sort by ratings, price range, and proximity.
-- **Interactive Profiles** — View high-quality food photos, reviews, and live status.
-- **Navigation** — Integrated Google Maps links for precise vendor locations.
-
-### 🏪 Vendor Features
-- **Digital Storefront** — Register and manage a professional shop profile.
-- **Dynamic Menu** — Add, edit, or remove menu items with pricing in real-time.
-- **Live Status** — Toggle "Live" or "Offline" status to manage customer expectations.
-- **Review Tracking** — Monitor customer feedback and ratings.
-
-### 🛡️ Admin Features
-- **Vendor Verification** — Approve or reject new vendor registrations.
-- **Content Moderation** — Review and manage customer feedback.
-- **System Insights** — View platform statistics and user growth.
+A full-stack web application to discover street food vendors near you. Customers can search vendors by menu items, vendors can manage their shop, and admins can approve vendors and reviews.
 
 ---
 
-## 🛠️ Tech Stack
+## 🖥️ Tech Stack
 
 | Layer | Technology |
-| :--- | :--- |
-| **Frontend** | React 18, Vite, React Router |
-| **State Management** | Context API (Auth & Global State) |
-| **Styling** | Tailwind CSS / CSS3 |
-| **Backend** | Java 17, Spring Boot 3.2 |
-| **Security** | Spring Security, JWT (JSON Web Tokens) |
-| **Database** | MySQL 8.0 |
-| **Build Tool** | Maven |
+|-------|-----------|
+| Frontend | React 18, Vite, React Router v6, Axios |
+| Backend | Java 17, Spring Boot 3.2, Spring Security, JWT |
+| Database | MySQL 8 |
 
 ---
 
-## 📁 Project Structure
+## ✅ Prerequisites
 
-```text
-street-food-finder/
-├── backend/                    # Spring Boot Application
-│   ├── src/main/java/com/streetfood/
-│   │   ├── controller/         # REST API Endpoints
-│   │   ├── model/              # Database Entities
-│   │   ├── repository/         # JPA Data Access
-│   │   ├── service/            # Business Logic
-│   │   ├── security/           # JWT & Auth Logic
-│   │   └── config/             # App Configurations
-│   └── src/main/resources/     # application.properties
-│
-└── streetfood-frontend/        # React Frontend
-    ├── src/
-    │   ├── pages/
-    │   │   ├── admin/          # Admin Dashboards
-    │   │   ├── customer/       # Customer Discovery Views
-    │   │   ├── vendor/         # Vendor Management Pages
-    │   │   ├── Login.jsx       # Universal Login
-    │   │   └── Register.jsx    # Multi-role Registration
-    │   ├── context/            # AuthContext provider
-    │   ├── api/                # Axios instance & Interceptors
-    │   └── App.jsx             # Routes & Layout
-🚀 Getting Started
-Prerequisites
-Java 17+ — Download
+Install these before starting:
 
-Node.js 18+ — Download
+- [Java 17+](https://www.oracle.com/java/technologies/downloads/)
+- [Maven 3.8+](https://maven.apache.org/download.cgi)
+- [Node.js 18+](https://nodejs.org/)
+- [MySQL 8](https://dev.mysql.com/downloads/)
+- [Git](https://git-scm.com/)
 
-MySQL 8.0 — Download
+---
 
-Maven — Download
+## 🚀 Setup Instructions
 
-1. Database Setup
-Run the following script in your MySQL Workbench to initialize the system:
+### Step 1: Clone the project
 
-SQL
+```bash
+git clone https://github.com/DHANUSHNAGARAJ123/street-food-finder.git
+cd street-food-finder
+```
+
+---
+
+### Step 2: Database Setup
+
+Open **MySQL Workbench** and run:
+
+```sql
 CREATE DATABASE streetfood_db;
 USE streetfood_db;
 
--- Initial Admin Setup
 CREATE TABLE admin_credentials (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -89,48 +52,208 @@ CREATE TABLE admin_credentials (
     name VARCHAR(100) NOT NULL
 );
 
--- Default Admin Account
 INSERT INTO admin_credentials (email, password, name)
-VALUES ('admin@example.com', 'admin123', 'Dhanush Admin');
-2. Backend Setup
-Navigate to backend/src/main/resources/application.properties.
+VALUES ('nagarajdhanush88@gmail.com', 'dhanush', 'Dhanush Admin');
+```
 
-Update your MySQL credentials:
+---
 
-Properties
-spring.datasource.username=root
-spring.datasource.password=YOUR_PASSWORD
-Run the application:
+### Step 3: Backend Setup
 
-Bash
+```bash
 cd backend
-mvn clean install
-mvn spring-boot:run
-Backend API runs at: http://localhost:8080
+```
 
-3. Frontend Setup
-Bash
+Open `src/main/resources/application.properties` and update your MySQL password:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/streetfood_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=YOUR_MYSQL_PASSWORD
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+server.port=8080
+```
+
+Run the backend:
+
+```bash
+mvn clean spring-boot:run
+```
+
+✅ Backend runs on: `http://localhost:8080`
+
+---
+
+### Step 4: Frontend Setup
+
+Open a **new terminal**:
+
+```bash
 cd streetfood-frontend
 npm install
 npm run dev
-Frontend runs at: http://localhost:5173
+```
 
-🔒 Security Implementation
-Stateless Auth — Uses JWT to handle sessions securely without cookies.
+✅ Frontend runs on: `http://localhost:5173`
 
-RBAC — Role-Based Access Control ensures unauthorized access to sensitive panels is blocked.
+---
 
-Password Safety — BCrypt hashing for secure credential storage in MySQL.
+## 🔐 Login Credentials
 
-🛡️ Troubleshooting
-CORS Errors: Check @CrossOrigin in Spring Controllers.
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | nagarajdhanush88@gmail.com | dhanush |
+| Customer | Register a new account | - |
+| Vendor | Register a new account | - |
 
-Port Conflict: Ensure ports 8080 and 5173 are free.
+> **Note:** Admin credentials are stored in the `admin_credentials` table. Customer and Vendor accounts can be registered from the login page.
 
-Maven Dependencies: If offline, run mvn dependency:go-offline before losing connection.
+---
 
-👨‍💻 Author
-Dhanush Full-Stack Developer | Machine Learning Enthusiast
+## ✨ Features
 
-📄 License
-This project is licensed under the MIT License — feel free to use and modify it for your own learning!
+### 👤 Customer
+- Search vendors by **menu item name** (e.g. "Chicken", "Dosa")
+- Results sorted by **rating** (highest first)
+- Filter by price range, rating, open status, location
+- View vendor details - menu, reviews, photos
+- ❤️ Like / Favorite vendors
+- 🗺️ Get directions via Google Maps
+
+### 🏪 Vendor
+- Register shop (pending admin approval)
+- Add / Edit / Delete menu items
+- Upload up to 4 shop photos
+- Go **Live** / **Offline** toggle
+- View customer reviews (admin approved only)
+- Add Google Maps location URL
+
+### 🛡️ Admin
+- Approve / Reject vendor registrations
+- Approve / Reject customer reviews
+- Manage all users
+- View platform statistics
+- Reviews only show to customers after admin approval
+
+---
+
+## 📁 Project Structure
+
+```
+street-food-finder/
+│
+├── README.md
+│
+├── backend/                          # Spring Boot Backend
+│   └── src/main/java/com/streetfood/
+│       ├── controller/               # REST API endpoints
+│       │   ├── AuthController.java
+│       │   ├── PublicVendorController.java
+│       │   ├── VendorManagementController.java
+│       │   ├── AdminController.java
+│       │   ├── FavoriteController.java
+│       │   ├── ReviewController.java
+│       │   └── ImageUploadController.java
+│       ├── model/                    # JPA Entity models
+│       │   ├── User.java
+│       │   ├── Vendor.java
+│       │   ├── MenuItem.java
+│       │   ├── Review.java
+│       │   ├── Favorite.java
+│       │   └── AdminCredential.java
+│       ├── repository/               # Spring Data JPA
+│       ├── service/                  # Business logic
+│       ├── security/                 # JWT Auth
+│       │   ├── JwtUtil.java
+│       │   └── JwtFilter.java
+│       └── config/                   # Security + Web config
+│
+└── streetfood-frontend/              # React Frontend
+    └── src/
+        ├── pages/
+        │   ├── admin/                # Admin dashboard pages
+        │   │   ├── AdminHome.jsx
+        │   │   ├── AdminVendors.jsx
+        │   │   ├── AdminUsers.jsx
+        │   │   └── AdminReviews.jsx
+        │   ├── customer/
+        │   │   └── CustomerDashboard.jsx
+        │   ├── vendor/
+        │   │   └── VendorDashboard.jsx
+        │   ├── Login.jsx
+        │   ├── RegisterCustomer.jsx
+        │   ├── RegisterVendor.jsx
+        │   └── VendorDetail.jsx
+        ├── context/
+        │   └── AuthContext.jsx       # Auth state management
+        ├── api/
+        │   └── axios.js              # API configuration
+        └── App.jsx                   # Routes
+```
+
+---
+
+## 🔑 API Endpoints
+
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/auth/login` | Public | Login |
+| POST | `/api/auth/register-customer` | Public | Customer register |
+| POST | `/api/auth/register-vendor` | Public | Vendor register |
+| GET | `/api/vendors` | Public | All approved vendors |
+| GET | `/api/vendors/search?q=chicken` | Public | Search by menu item |
+| GET | `/api/vendors/{id}` | Public | Vendor details |
+| GET | `/api/vendors/{id}/menu` | Public | Vendor menu |
+| GET | `/api/vendor/my-shop` | Vendor | My shop details |
+| PUT | `/api/vendor/toggle-live` | Vendor | Go live/offline |
+| POST | `/api/vendor/menu` | Vendor | Add menu item |
+| GET | `/api/admin/stats` | Admin | Platform stats |
+| PUT | `/api/admin/vendors/{id}/approve` | Admin | Approve vendor |
+| PUT | `/api/admin/reviews/{id}/approve` | Admin | Approve review |
+
+---
+
+## 📸 Image Upload
+
+- Vendors can upload up to **4 shop photos**
+- First photo = shop logo + hero image on customer page
+- Photos stored in `backend/uploads/vendors/`
+- Max file size: **5MB per image**
+
+---
+
+## 🗺️ Google Maps Integration
+
+Vendors can add a **Google Maps URL** in their profile:
+1. Open Google Maps → Search your shop location
+2. Click **Share** → Copy link
+3. Paste in vendor profile → **Location URL field**
+4. Customers click "Open Maps" → Direct directions open
+
+---
+
+## ⚠️ Common Issues
+
+**Backend won't start:**
+- Check MySQL is running on port 3306
+- Check username/password in `application.properties`
+- Make sure `streetfood_db` database exists
+
+**Frontend can't connect to backend:**
+- Make sure backend is running on port 8080
+- Check browser console for CORS errors
+
+**Admin login not working:**
+- Make sure `admin_credentials` table exists in MySQL
+- Run the SQL insert command from Step 2
+
+---
+
+## 👨‍💻 Developer
+
+Built by **Dhanush Nagaraj**
+
+---
