@@ -10,7 +10,7 @@ A full-stack web application to discover street food vendors near you. Customers
 |-------|-----------|
 | Frontend | React 18, Vite, React Router v6, Axios |
 | Backend | Java 17, Spring Boot 3.2, Spring Security, JWT |
-| Database | MySQL 8 |
+| Database | MongoDB |
 
 ---
 
