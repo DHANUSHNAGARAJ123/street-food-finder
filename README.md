@@ -21,7 +21,7 @@ Install these before starting:
 - [Java 17+](https://www.oracle.com/java/technologies/downloads/)
 - [Maven 3.8+](https://maven.apache.org/download.cgi)
 - [Node.js 18+](https://nodejs.org/)
-- [MySQL 8](https://dev.mysql.com/downloads/)
+- [MongoDB](https://dev.mongodb.com/downloads/)
 - [Git](https://git-scm.com/)
 
 ---
